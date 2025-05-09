@@ -25,7 +25,7 @@
     <p>Стоимость рассчитываем индивидуально — зависит от маршрута, тоннажа и срочности.</p>
 
     <form id="contactForm" class="row g-2 mt-3">
-      <div class="col-md-4">
+      <div class="col-md-3">
         <select id="channel" class="form-select" required>
           <option value="" disabled selected>Канал связи</option>
           <option value="whatsapp">WhatsApp</option>
@@ -33,10 +33,13 @@
           <option value="email">E-mail</option>
         </select>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <input id="clientEmail" type="email" class="form-control" placeholder="Ваш e‑mail" required>
       </div>
-      <div class="col-md-4 d-grid">
+      <div class="col-md-3">
+        <input id="clientPhone" type="tel" class="form-control" placeholder="Телефон (по желанию)">
+      </div>
+      <div class="col-md-3 d-grid">
         <button type="submit" class="btn btn-primary">Отправить</button>
       </div>
     </form>
@@ -54,20 +57,24 @@
     e.preventDefault();
     var channel = document.getElementById('channel').value;
     var email = document.getElementById('clientEmail').value.trim();
+    var phone = document.getElementById('clientPhone').value.trim();
     if (!channel || !email) return;
 
-    var text = encodeURIComponent(
-      'Здравствуйте! Прошу расчёт стоимости перевозки. Вот моя почта: ' + email + '. Благодарю.'
-    );
+    var message = 'Здравствуйте! Прошу расчёт стоимости перевозки.';
+    message += ' Вот моя почта: ' + email + '.';
+    if (phone) message += ' Мой телефон: ' + phone + '.';
+    message += ' Благодарю.';
+
+    var text = encodeURIComponent(message);
     var url;
     if (channel === 'whatsapp') {
-      var phone = '+79819846577'.replace(/\D/g, '');
-      url = 'https://api.whatsapp.com/send?phone=' + phone + '&text=' + text;
+      var waPhone = '+79819846577'.replace(/\D/g, '');
+      url = 'https://api.whatsapp.com/send?phone=' + waPhone + '&text=' + text;
     } else if (channel === 'telegram') {
-      var username = 'Pyteec_Bebra'; // Замените на ваш Telegram username
+      var username = 'gruzovik_support'; // Замените на ваш Telegram username
       url = 'https://t.me/' + username + '?text=' + text;
     } else if (channel === 'email') {
-      var mailto = 'ilya5950385@yandex.ru'; // Замените на ваш e-mail
+      var mailto = 'support@example.com'; // Замените на ваш e-mail
       var subject = encodeURIComponent('Запрос расчёта стоимости');
       url = 'mailto:' + mailto + '?subject=' + subject + '&body=' + text;
     }
