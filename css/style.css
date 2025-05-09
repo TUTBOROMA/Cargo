@@ -1,0 +1,27 @@
+﻿:root{
+  --primary:#1E88E5;
+  --primary-dark:#0D47A1;
+  --gray:#6c757d;
+  --light:#f8f9fa;
+  --font-head:"Montserrat",sans-serif;
+  --font-body:"Roboto",sans-serif;
+}
+
+/* Base */
+html,body{font-family:var(--font-body);scroll-behavior:smooth;}
+.bg-primary{background:var(--primary)!important;}
+.navbar-brand,.section-title{font-family:var(--font-head);}
+.logo{letter-spacing:1px;color:#fff!important;}
+
+.hero{
+  min-height:100vh;
+  background:url("../images/hero.jpg") center/cover no-repeat;
+  position:relative;color:#fff;
+}
+.hero::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.55);}
+.hero>.container{position:relative;z-index:2;}
+
+.section-title{font-size:2rem;}
+.card-img-top{height:200px;object-fit:cover;}
+.cta{background:var(--primary-dark);}
+footer p{color:var(--light);}
