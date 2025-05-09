@@ -1,20 +1,78 @@
-﻿<!DOCTYPE html><html lang="ru">
+﻿<!DOCTYPE html>
+<html lang="ru">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Цены | ГРУЗОВИК</title>
+
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
-  <div class="container"><a class="navbar-brand fw-bold logo" href="../index.html">ГРУЗОВИК</a></div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold logo" href="../index.html">ГРУЗОВИК</a>
+  </div>
 </nav>
 
-<section class="py-5 mt-4">
+<section class="py-5 mt-5">
   <div class="container">
     <h1 class="section-title mb-4">Цены</h1>
     <p>Стоимость рассчитываем индивидуально — зависит от маршрута, тоннажа и срочности.</p>
-    <a href="../index.html" class="btn btn-primary mt-3"><i class="fa-solid fa-arrow-left me-1"></i> На главную</a>
+
+    <form id="contactForm" class="row g-2 mt-3">
+      <div class="col-md-4">
+        <select id="channel" class="form-select" required>
+          <option value="" disabled selected>Канал связи</option>
+          <option value="whatsapp">WhatsApp</option>
+          <option value="telegram">Telegram</option>
+          <option value="email">E-mail</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <input id="clientEmail" type="email" class="form-control" placeholder="Ваш e‑mail" required>
+      </div>
+      <div class="col-md-4 d-grid">
+        <button type="submit" class="btn btn-primary">Отправить</button>
+      </div>
+    </form>
+
+    <a href="../index.html" class="btn btn-secondary mt-3">
+      <i class="fa-solid fa-arrow-left me-1"></i>На главную
+    </a>
   </div>
 </section>
-</body></html>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var channel = document.getElementById('channel').value;
+    var email = document.getElementById('clientEmail').value.trim();
+    if (!channel || !email) return;
+
+    var text = encodeURIComponent(
+      'Здравствуйте! Прошу расчёт стоимости перевозки. Вот моя почта: ' + email + '. Благодарю.'
+    );
+    var url;
+    if (channel === 'whatsapp') {
+      var phone = '+79819846577'.replace(/\D/g, '');
+      url = 'https://api.whatsapp.com/send?phone=' + phone + '&text=' + text;
+    } else if (channel === 'telegram') {
+      var username = 'Pyteec_Bebra'; // Замените на ваш Telegram username
+      url = 'https://t.me/' + username + '?text=' + text;
+    } else if (channel === 'email') {
+      var mailto = 'ilya5950385@yandex.ru'; // Замените на ваш e-mail
+      var subject = encodeURIComponent('Запрос расчёта стоимости');
+      url = 'mailto:' + mailto + '?subject=' + subject + '&body=' + text;
+    }
+    window.open(url, '_blank');
+  });
+</script>
+</body>
+</html>
