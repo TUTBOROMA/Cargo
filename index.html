@@ -17,23 +17,24 @@
   <link rel="stylesheet" href="css/style.css">
 
   <!-- Добавляем только эти стили -->
-  <style>
-    /* чтобы HERO-контейнер стал позиционным блоком для логотипа */
-    header.hero {
-      position: relative;
-    }
-    /* само изображение-логотип */
-    .hero-logo {
-      position: absolute;
-      top: 50%;
-      left: 20%;
-      transform: translate(-50%, -50%);
-      max-width: 180px; /* подберите размер под дизайн */
-      width: 100%;
-      height: auto;
-      z-index: 5;
-    }
-  </style>
+  /* Добавьте в <head> вместо прежних */
+<style>
+  header.hero {
+    position: relative;
+  }
+  .hero-logo {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    /* смещаем по центру и на 200px вверх */
+    transform: translate(-50%, -50%) translateY(-200px);
+    max-width: 180px;
+    width: 100%;
+    height: auto;
+    z-index: 5;
+  }
+</style>
+
 </head>
 <body>
 
